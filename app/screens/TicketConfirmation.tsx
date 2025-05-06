@@ -14,7 +14,8 @@ const TicketConfirmationModal = ({ route, navigation }: TkProps) => {
       </TmText>
       <TmText style={{ fontSize: 18 }}>Evenement: {eventName}</TmText>
       <TmText style={{ marginVertical: 16 }}>
-        🎟️ Your Ticket Code: {ticket}
+        🎟️ Votre code de billet:{' '}
+        <TmText style={{ fontWeight: '700' }}>{ticket}</TmText>
       </TmText>
       <TmButton
         title="Retour"
