@@ -1,5 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
+import AdminEventsList from '../screens/admin/AdminEventsList'
+import EditEvent from '../screens/admin/EditEvent'
+import ParticipantsList from '../screens/admin/ParticipantList'
 import Login from '../screens/common/auth/Login'
 import Register from '../screens/common/auth/Register'
 import Welcome from '../screens/common/auth/Welcome'
@@ -43,6 +46,18 @@ export default function RootStack() {
         name={routes.LOGIN}
         component={Login}
         options={{ headerShown: true }}
+      />
+      <Stack.Screen
+        name={routes.EVENTADMINLIST}
+        component={AdminEventsList}
+      />
+      <Stack.Screen
+        name={routes.EVENTEDIT}
+        component={EditEvent}
+      />
+      <Stack.Screen
+        name={routes.PARTICIPANTSLIST}
+        component={ParticipantsList}
       />
     </Stack.Navigator>
   )
