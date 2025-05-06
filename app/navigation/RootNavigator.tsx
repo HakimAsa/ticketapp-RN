@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Login from '../screens/common/auth/Login'
 import Register from '../screens/common/auth/Register'
 import Welcome from '../screens/common/auth/Welcome'
+import EventsList from '../screens/EventList'
 import routes from './routes'
 
 const Stack = createNativeStackNavigator()
@@ -14,6 +15,10 @@ export default function RootStack() {
         title: `${route.name}`, // ✅ Will now update dynamically!
       })}
     >
+      <Stack.Screen
+        name="List des Evenements"
+        component={EventsList}
+      />
       <Stack.Screen
         name={routes.WELCOME}
         component={Welcome}
