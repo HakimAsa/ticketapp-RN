@@ -1,4 +1,5 @@
 import TkProps from '@/TkProps'
+import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 import { FlatList, TouchableOpacity, View } from 'react-native'
 import TmText from '../components/common/text/TmText'
@@ -87,7 +88,8 @@ const EventsList = ({ navigation }: TkProps) => {
         <TmText style={{ fontSize: 18 }}>{item.title}</TmText>
         <TmText>{item.description}</TmText>
         <TmText>
-          {item.start_date} ➡ {item.end_date}
+          {dayjs(item.start_date).format('DD/MM/YYYY')} ➡{' '}
+          {dayjs(item.end_date).format('DD/MM/YYYY')}
         </TmText>
         <TmText
           style={{
