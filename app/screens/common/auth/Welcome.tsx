@@ -1,12 +1,12 @@
 import { ImageBackground, StyleSheet, View } from 'react-native'
 
-import Colors from '@/config/colors'
+import TmButton from '@/app/components/common/button/TmButton'
 import Logo from '@/app/components/common/image/Logo'
 import TmText from '@/app/components/common/text/TmText'
-import TmButton from '@/app/components/common/button/TmButton'
 import i18n from '@/app/i18n'
 import routes from '@/app/navigation/routes'
-import TmProps from '@/TmProps'
+import Colors from '@/config/colors'
+import TmProps from '@/TkProps'
 import TRN_KEYS from '@/translation/keys'
 
 export default function Welcome({ navigation }: TmProps) {

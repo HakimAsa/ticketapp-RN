@@ -1,25 +1,24 @@
 import { ScrollView } from 'react-native'
 import * as Yup from 'yup'
 
+import authApi from '@/app/api/auth'
 import MainContainer, {
   KeyboardAvoidViewContainer,
 } from '@/app/components/containers'
-import i18n from '@/app/i18n'
-import TRN_KEYS from '@/translation/keys'
-import IconHeader from '@/app/components/icons/IconHeader'
 import TmForm, {
   ErrorMessages,
   TmFormField,
   TmSubmitButton,
 } from '@/app/components/forms'
-import AuthFooter from './AuthFooter'
-import routes from '@/app/navigation/routes'
-import TmProps from '@/TmProps'
-import authApi from '@/app/api/auth'
-import useApi from '@/app/hooks/useApi'
-import TmActivityIndicator from '@/app/components/loader/TmActivityIndicator'
+import IconHeader from '@/app/components/icons/IconHeader'
+import TmActivityIndicator from '@/app/components/loader/TkActivityIndicator'
 import MessageModal from '@/app/components/modals/MessageModal'
+import useApi from '@/app/hooks/useApi'
+import routes from '@/app/navigation/routes'
+import TmProps from '@/TkProps'
+import TRN_KEYS from '@/translation/keys'
 import { useState } from 'react'
+import AuthFooter from './AuthFooter'
 
 const signupSchema = Yup.object({
   confirmpassword: Yup.string()
@@ -120,28 +119,28 @@ export default function Register({ navigation }: TmProps) {
             />
             <TmFormField
               name="username"
-              placeholder={i18n.t(TRN_KEYS.USERNAME)}
+              placeholder={TRN_KEYS.USERNAME}
               iconName="account"
             />
             <TmFormField
               name="email"
-              placeholder={i18n.t(TRN_KEYS.EMAIL)}
+              placeholder={TRN_KEYS.EMAIL}
               iconName="email"
             />
             <TmFormField
-              label={i18n.t(TRN_KEYS.PASSWORD)}
+              label="Mot de Passe"
               name="password"
               placeholder="* * * * * * * *"
               iconName="lock"
             />
             <TmFormField
               name="confirmpassword"
-              label={i18n.t(TRN_KEYS.CONFIRMPASSWORD)}
+              label="Confirmer Mot de Passe"
               placeholder="* * * * * * * *"
               iconName="lock"
             />
             {/* Submit button */}
-            <TmSubmitButton title={i18n.t(TRN_KEYS.SIGNUP)} />
+            <TmSubmitButton title="s'inscrire" />
             <AuthFooter
               unlinkedText={TRN_KEYS.ALREADYHAVEANACCOUNT}
               linkedText={TRN_KEYS.LOGIN}

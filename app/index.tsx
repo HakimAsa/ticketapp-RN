@@ -1,24 +1,16 @@
-import { Text, View } from "react-native";
+import {
+  NavigationContainer,
+  NavigationIndependentTree,
+} from '@react-navigation/native'
+
+import RootStack from './navigation/RootNavigator'
 
 export default function Index() {
   return (
-    import {
-      NavigationContainer,
-      NavigationIndependentTree,
-    } from '@react-navigation/native'
-
-    import RootStack from './navigation/RootNavigator'
-
-
-    export default function Index() {
-      return (
-        <NavigationIndependentTree>
-            <NavigationContainer>
-              <RootStack />
-            </NavigationContainer>
-        </NavigationIndependentTree>
-      )
-    }
-
-  );
+    <NavigationIndependentTree>
+      <NavigationContainer>
+        <RootStack />
+      </NavigationContainer>
+    </NavigationIndependentTree>
+  )
 }
