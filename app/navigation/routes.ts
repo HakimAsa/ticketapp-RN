@@ -6,6 +6,7 @@ const routes = {
   PROFILE: 'profile',
   REGISTER: 'register',
   SETTINGS: 'settings',
+  TICKETCONFIRMATION: 'Confirmation de Ticket',
   WELCOME: 'welcome',
 } as const
 

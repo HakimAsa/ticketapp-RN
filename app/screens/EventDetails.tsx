@@ -7,6 +7,7 @@ import MainContainer, {
   KeyboardAvoidViewContainer,
 } from '../components/containers'
 import TmTextInput from '../components/inputs/TmTextInput'
+import routes from '../navigation/routes'
 
 const EventDetailsScreen = ({ route, navigation }: TkProps) => {
   const { event } = route.params
@@ -34,7 +35,7 @@ const EventDetailsScreen = ({ route, navigation }: TkProps) => {
       }
 
       //   const data = await res.json()
-      navigation.navigate('TicketConfirmation', {
+      navigation.navigate(routes.TICKETCONFIRMATION, {
         ticket: res.ticket,
         eventName: event.title,
       })

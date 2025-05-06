@@ -5,6 +5,7 @@ import Register from '../screens/common/auth/Register'
 import Welcome from '../screens/common/auth/Welcome'
 import EventDetailsScreen from '../screens/EventDetails'
 import EventsList from '../screens/EventList'
+import TicketConfirmationModal from '../screens/TicketConfirmation'
 import routes from './routes'
 
 const Stack = createNativeStackNavigator()
@@ -23,6 +24,10 @@ export default function RootStack() {
       <Stack.Screen
         name="Details de Evenements"
         component={EventDetailsScreen}
+      />
+      <Stack.Screen
+        name={routes.TICKETCONFIRMATION}
+        component={TicketConfirmationModal}
       />
       <Stack.Screen
         name={routes.WELCOME}
