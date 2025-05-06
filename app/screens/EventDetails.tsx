@@ -8,6 +8,7 @@ import MainContainer, {
 } from '../components/containers'
 import TmTextInput from '../components/inputs/TmTextInput'
 import routes from '../navigation/routes'
+import helpers from '../utils/helpers'
 
 const EventDetailsScreen = ({ route, navigation }: TkProps) => {
   const { event } = route.params
@@ -18,15 +19,14 @@ const EventDetailsScreen = ({ route, navigation }: TkProps) => {
 
   const submit = async () => {
     try {
-      const res = { ok: true, text: () => 'fail', ticket: 'aaa' }
-      //   await fetch(
-      //     `http://localhost:5000/api/events/${event.id}/participate`,
-      //     {
-      //       method: 'POST',
-      //       headers: { 'Content-Type': 'application/json' },
-      //       body: JSON.stringify(form),
-      //     }
-      //   )
+      const res = await fetch(
+        `${helpers.getBaseUrl()}/events/${event.id}/participate`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(form),
+        }
+      )
 
       if (!res.ok) {
         const error = await res.text()
