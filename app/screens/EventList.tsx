@@ -74,7 +74,9 @@ const EventsList = ({ navigation }: TkProps) => {
 
   const renderItem = ({ item }: { item: any }) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate('EventDetails', { event: item })}
+      onPress={() =>
+        navigation.navigate('Details de Evenements', { event: item })
+      }
     >
       <View style={{ padding: 16, borderBottomWidth: 1 }}>
         <TmText style={{ fontSize: 18 }}>{item.title}</TmText>

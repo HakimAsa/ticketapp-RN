@@ -4,6 +4,7 @@ import { TextProps, ViewProps } from 'react-native'
 
 export default interface TkProps {
   navigation: NavigationProp<any, any>
+  route?: any
 }
 
 export type commonProps = {

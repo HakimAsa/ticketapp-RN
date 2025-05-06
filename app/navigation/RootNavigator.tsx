@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Login from '../screens/common/auth/Login'
 import Register from '../screens/common/auth/Register'
 import Welcome from '../screens/common/auth/Welcome'
+import EventDetailsScreen from '../screens/EventDetails'
 import EventsList from '../screens/EventList'
 import routes from './routes'
 
@@ -18,6 +19,10 @@ export default function RootStack() {
       <Stack.Screen
         name="List des Evenements"
         component={EventsList}
+      />
+      <Stack.Screen
+        name="Details de Evenements"
+        component={EventDetailsScreen}
       />
       <Stack.Screen
         name={routes.WELCOME}
