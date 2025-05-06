@@ -1,5 +1,5 @@
+import Colors from '@/app/config/colors'
 import TmText from '../common/text/TmText'
-import Colors from '@/config/colors'
 
 interface ErrorMessagesProps {
   error: string

@@ -3,10 +3,10 @@ import { ImageBackground, StyleSheet, View } from 'react-native'
 import TmButton from '@/app/components/common/button/TmButton'
 import Logo from '@/app/components/common/image/Logo'
 import TmText from '@/app/components/common/text/TmText'
-import i18n from '@/app/i18n'
+import Colors from '@/app/config/colors'
 import routes from '@/app/navigation/routes'
-import Colors from '@/config/colors'
 import TmProps from '@/TkProps'
+import fr from '@/translation/fr'
 import TRN_KEYS from '@/translation/keys'
 
 export default function Welcome({ navigation }: TmProps) {
@@ -25,16 +25,16 @@ export default function Welcome({ navigation }: TmProps) {
           big
           style={styles.welcomeText}
         >
-          {i18n.t('tagLine')}
+          {fr.tagLine}
         </TmText>
       </View>
       <View style={styles.buttonView}>
         <TmButton
-          title={i18n.t(TRN_KEYS.LOGIN)}
+          title={TRN_KEYS.LOGIN}
           onPress={() => navigation.navigate(routes.LOGIN)}
         />
         <TmButton
-          title={i18n.t(TRN_KEYS.REGISTER)}
+          title={TRN_KEYS.REGISTER}
           color="primary1"
           style={{ marginTop: 0 }}
           onPress={() => navigation.navigate(routes.REGISTER)}

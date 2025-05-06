@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   DimensionValue,
   StyleSheet,
@@ -6,11 +7,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import React from 'react'
 
+import Colors from '@/app/config/colors'
+import { MaterialCommunityIcons, McNames } from '@/app/config/icons'
 import TmText from '../common/text/TmText'
-import Colors from '@/config/colors'
-import { MaterialCommunityIcons, McNames } from '@/config/icons'
 
 export interface TmTextInputProps extends TextInputProps {
   iconColor?: string

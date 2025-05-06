@@ -1,12 +1,11 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 
-import TmModal from './TmModal'
-import Colors from '@/config/colors'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-import TmText from '../common/text/TmText'
-import TmButton from '../common/button/TmButton'
-import i18n from '@/app/i18n'
+import Colors from '@/app/config/colors'
 import TRN_KEYS from '@/translation/keys'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import TmButton from '../common/button/TmButton'
+import TmText from '../common/text/TmText'
+import TmModal from './TmModal'
 
 interface MessageModalProps {
   buttonHandler: () => void
@@ -54,7 +53,7 @@ export default function MessageModal({
             {message}
           </TmText>
           <TmButton
-            title={i18n.t(buttonText || TRN_KEYS.DONE)}
+            title={buttonText || TRN_KEYS.DONE}
             onPress={buttonHandler}
           />
         </View>

@@ -140,7 +140,7 @@ export default function Register({ navigation }: TmProps) {
               iconName="lock"
             />
             {/* Submit button */}
-            <TmSubmitButton title="s'inscrire" />
+            <TmSubmitButton title="S'inscrire" />
             <AuthFooter
               unlinkedText={TRN_KEYS.ALREADYHAVEANACCOUNT}
               linkedText={TRN_KEYS.LOGIN}

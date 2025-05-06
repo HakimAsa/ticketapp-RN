@@ -1,8 +1,8 @@
-import { StyleSheet, View } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { StyleSheet, View } from 'react-native'
 
-import Colors from '@/config/colors'
-import { ScreenHeight } from '@/config/constants'
+import Colors from '@/app/config/colors'
+import { ScreenHeight } from '@/app/config/constants'
 
 interface IconHeaderProps {
   color?: string

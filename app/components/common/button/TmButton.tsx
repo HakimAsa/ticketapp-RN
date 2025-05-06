@@ -1,9 +1,7 @@
-import { Pressable, StyleSheet, PressableProps, View } from 'react-native'
-import React from 'react'
+import { Pressable, PressableProps, StyleSheet } from 'react-native'
 
-import Colors, { ColorKeys } from '@/config/colors'
+import Colors, { ColorKeys } from '@/app/config/colors'
 import TmText from '../text/TmText'
-import i18n from '@/app/i18n'
 
 export interface TmButtonProps extends PressableProps {
   style?: any
@@ -33,7 +31,7 @@ export default function TmButton({
             textStyle,
           ]}
         >
-          {title || i18n.t('myBtton')}
+          {title || 'mon Bouton'}
         </TmText>
       ) : (
         <>{children}</>

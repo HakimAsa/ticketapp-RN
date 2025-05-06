@@ -1,6 +1,6 @@
 import { ScrollView, ScrollViewProps } from 'react-native'
 
-import Colors from '@/config/colors'
+import Colors from '@/app/config/colors'
 import KeyboardAvoidViewContainer from './KeyboardAvoidViewContainer'
 
 interface ScrollableMainContainerProps extends ScrollViewProps {}

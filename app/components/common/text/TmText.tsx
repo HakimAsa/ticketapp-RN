@@ -1,6 +1,6 @@
 import { Text } from 'react-native'
 
-import defaultStyles from '@/config/styles'
+import defaultStyles from '@/app/config/styles'
 interface TextProps {
   big?: boolean
   medium?: boolean

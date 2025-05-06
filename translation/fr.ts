@@ -21,7 +21,7 @@ const fr = {
   save: 'Enregistrer',
   signup: 'S’inscrire',
   selectItem: 'Sélectionner un item',
-  tagLine: 'Gérez vos tâches efficacement !',
+  tagLine: 'Gérez vos événements bien!',
   username: `Nom d'utilisateur`,
   usernameOrEmail: `Nom d'utilisateur ou E-mail`,
 }

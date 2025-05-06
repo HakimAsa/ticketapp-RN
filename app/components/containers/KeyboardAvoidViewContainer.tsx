@@ -1,8 +1,8 @@
-import { KeyboardAvoidingView, KeyboardAvoidingViewProps } from 'react-native'
-import React, { useContext } from 'react'
 import { HeaderHeightContext } from '@react-navigation/elements'
+import React, { useContext } from 'react'
+import { KeyboardAvoidingView, KeyboardAvoidingViewProps } from 'react-native'
 
-import { onIOS } from '@/config/constants'
+import { onIOS } from '@/app/config/constants'
 
 interface KeyboardProps extends KeyboardAvoidingViewProps {}
 

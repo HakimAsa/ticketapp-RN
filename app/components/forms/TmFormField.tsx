@@ -1,10 +1,10 @@
+import { useFormikContext } from 'formik'
 import { useState } from 'react'
 import { StyleSheet } from 'react-native'
-import { useFormikContext } from 'formik'
 
+import Colors from '@/app/config/colors'
 import TmTextInput, { TmTextInputProps } from '../inputs/TmTextInput'
 import ErrorMessages from './ErrorMessages'
-import Colors from '@/config/colors'
 
 interface TmFormFieldProps<T> extends TmTextInputProps {
   name: keyof T & string // ensures name is a key in T
