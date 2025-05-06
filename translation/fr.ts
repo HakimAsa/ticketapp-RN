@@ -16,6 +16,7 @@ const fr = {
   login: 'Se Connecter',
   logout: 'Se déconnecter',
   myButton: 'Mon bouton',
+  password: 'Mot de passe',
   register: 'S’inscrire',
   next: 'Suivant',
   save: 'Enregistrer',

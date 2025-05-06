@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
+import fr from '@/translation/fr'
 import AdminEventsList from '../screens/admin/AdminEventsList'
 import EditEvent from '../screens/admin/EditEvent'
 import ParticipantsList from '../screens/admin/ParticipantList'
@@ -17,11 +18,15 @@ export default function RootStack() {
     <Stack.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        title: `${route.name}`, // ✅ Will now update dynamically!
+        title: `${fr?.[route.name]}`, // ✅ Will now update dynamically!
       })}
     >
       <Stack.Screen
-        name="List des Evenements"
+        name={routes.WELCOME}
+        component={Welcome}
+      />
+      <Stack.Screen
+        name={routes.EVENTLIST}
         component={EventsList}
       />
       <Stack.Screen
@@ -31,10 +36,6 @@ export default function RootStack() {
       <Stack.Screen
         name={routes.TICKETCONFIRMATION}
         component={TicketConfirmationModal}
-      />
-      <Stack.Screen
-        name={routes.WELCOME}
-        component={Welcome}
       />
 
       <Stack.Screen

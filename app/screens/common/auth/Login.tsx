@@ -1,50 +1,61 @@
-import { ScrollView } from 'react-native'
+import { Alert, ScrollView } from 'react-native'
 import * as Yup from 'yup'
 
 import TmPressableText from '@/app/components/common/text/TmPressableText'
+import TmText from '@/app/components/common/text/TmText'
 import MainContainer, {
   KeyboardAvoidViewContainer,
 } from '@/app/components/containers'
 import TmForm, { TmFormField, TmSubmitButton } from '@/app/components/forms'
 import IconHeader from '@/app/components/icons/IconHeader'
-import { emailRegex } from '@/app/config/constants'
+import TkActivityIndicator from '@/app/components/loader/TkActivityIndicator'
+import authStorage from '@/app/context/auth/Storage'
 import routes from '@/app/navigation/routes'
+import helpers from '@/app/utils/helpers'
 import TmProps from '@/TkProps'
-import TRN_KEYS from '@/translation/keys'
+import fr from '@/translation/fr'
+import { useState } from 'react'
 import AuthFooter from './AuthFooter'
 
 const loginSchema = Yup.object({
-  useridentifier: Yup.string()
-    .min(3)
-    .test(
-      'email-or-username',
-      'Either email or username is required',
-      (value?: string) => {
-        if (!value) return false // Ensure the field is required
-        // Check if the value is a valid email
-        const isEmail = emailRegex.test(value)
-        // Check if the value is a valid username (assuming a simple regex for username)
-        const isUsername = value ? /^[a-zA-Z0-9_-]{3,16}$/.test(value) : false
-        // Ensure that the value is either an email or a username, but not both
-        return (isEmail && !isUsername) || (isUsername && !isEmail)
-      }
-    )
-    .required('Please enter either an email or a username'),
-  password: Yup.string().min(8).required(),
+  email: Yup.string().email().required('E-mail obligatoire'),
+  password: Yup.string().min(8).required('Mot de passe obligatoire'),
 })
 
 type LoginpFormValues = Yup.InferType<typeof loginSchema>
 
 const initialValues: LoginpFormValues = {
-  useridentifier: '',
+  email: '',
   password: '',
 }
 export default function Login({ navigation }: TmProps) {
+  const [loading, setLoading] = useState(false)
   // login user api call
   const logUserIn = async (values: any) => {
-    const res = {}
-    console.log(values)
+    try {
+      setLoading(true)
+      const res = await fetch(`${helpers.getBaseUrl()}/auth/admin/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values, null, 2),
+      })
+      setLoading(false)
+      const data = await res.json()
+
+      if (res.ok) {
+        await authStorage.storeToken(data.token)
+        navigation.replace(routes.EVENTADMINLIST) // go to admin dashboard
+      } else {
+        Alert.alert(
+          'Echec de connexion',
+          data.message || `Informations d'identification non valides`
+        )
+      }
+    } catch (err) {
+      Alert.alert('Erreur', 'Impossible de se connecter au serveur')
+    }
   }
+  if (loading) return <TkActivityIndicator visible={loading} />
   return (
     <MainContainer>
       {/* Login form */}
@@ -54,19 +65,25 @@ export default function Login({ navigation }: TmProps) {
           automaticallyAdjustKeyboardInsets
         >
           <IconHeader name="account-lock" />
-          {/* Registration fields */}
+          {/* LOGIN fields */}
+          <TmText
+            big
+            style={{ fontWeight: '700', textAlign: 'center' }}
+          >
+            Seulement pour les Admins
+          </TmText>
           <TmForm
             initialValues={initialValues}
             onSubmit={logUserIn}
             validationSchema={loginSchema}
           >
             <TmFormField
-              iconName="account"
-              name="useridentifier"
-              placeholder={TRN_KEYS.USERNAMEOREMAIL}
+              iconName="email"
+              name="email"
+              placeholder={fr.email}
             />
             <TmFormField
-              label={TRN_KEYS.PASSWORD}
+              label={fr.password}
               name="password"
               placeholder="* * * * * * * *"
               iconName="lock"
@@ -77,18 +94,18 @@ export default function Login({ navigation }: TmProps) {
               textAlign="right"
               fontWeight="500"
             >
-              {TRN_KEYS.FORGOTPASSWORD}
+              {fr.forgotPassword}
             </TmPressableText>
             {/* Submit button */}
             <TmSubmitButton
               style={{ marginTop: 15 }}
-              title={TRN_KEYS.LOGIN}
+              title={fr.login}
             />
 
             {/* FOOTER */}
             <AuthFooter
-              unlinkedText={TRN_KEYS.CREATEANACCOUNT}
-              linkedText={TRN_KEYS.SIGNUP}
+              unlinkedText={fr.createAnAccount}
+              linkedText={fr.signup}
               onPress={() => navigation.navigate(routes.REGISTER)}
             />
           </TmForm>

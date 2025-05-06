@@ -7,7 +7,6 @@ import Colors from '@/app/config/colors'
 import routes from '@/app/navigation/routes'
 import TmProps from '@/TkProps'
 import fr from '@/translation/fr'
-import TRN_KEYS from '@/translation/keys'
 
 export default function Welcome({ navigation }: TmProps) {
   return (
@@ -30,14 +29,14 @@ export default function Welcome({ navigation }: TmProps) {
       </View>
       <View style={styles.buttonView}>
         <TmButton
-          title={TRN_KEYS.LOGIN}
-          onPress={() => navigation.navigate(routes.LOGIN)}
+          title="Voir Evenements"
+          onPress={() => navigation.navigate(routes.EVENTLIST)}
         />
         <TmButton
-          title={TRN_KEYS.REGISTER}
+          title={fr.login}
           color="primary1"
           style={{ marginTop: 0 }}
-          onPress={() => navigation.navigate(routes.REGISTER)}
+          onPress={() => navigation.navigate(routes.LOGIN)}
         />
       </View>
     </ImageBackground>
