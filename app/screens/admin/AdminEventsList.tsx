@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList, View } from 'react-native'
 
 import TmButton from '@/app/components/common/button/TmButton'
 import TmText from '@/app/components/common/text/TmText'
 import { Row } from '@/app/components/containers'
 import TkActivityIndicator from '@/app/components/loader/TkActivityIndicator'
+import Colors from '@/app/config/colors'
 import authStorage from '@/app/context/auth/Storage'
 import routes from '@/app/navigation/routes'
 import helpers from '@/app/utils/helpers'
 import TkProps from '@/TkProps'
+import { useFocusEffect } from '@react-navigation/native'
 
 const AdminEventsList = ({ navigation }: TkProps) => {
   const [events, setEvents] = useState([])
@@ -36,16 +38,17 @@ const AdminEventsList = ({ navigation }: TkProps) => {
         },
       })
       const data = await res.json()
-      console.log('da', data)
       setEvents(data)
     } catch (err) {
       console.error(err)
     }
   }
 
-  useEffect(() => {
-    fetchEvents()
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      fetchEvents()
+    }, [])
+  )
 
   if (isLoading) {
     return <TkActivityIndicator visible={isLoading} />
@@ -53,8 +56,16 @@ const AdminEventsList = ({ navigation }: TkProps) => {
 
   const renderItem = ({ item }: { item: any }) => (
     <View style={{ padding: 12, borderBottomWidth: 1 }}>
-      <TmText style={{ fontSize: 16 }}>
-        {item.title} ({item.status})
+      <TmText style={{ fontSize: 16, fontWeight: '700' }}>
+        {item.title} (
+        <TmText
+          style={{
+            color: item.status === 'active' ? Colors.green : Colors.red,
+          }}
+        >
+          {item.status === 'active' ? 'Actif' : 'Expiré'}
+        </TmText>
+        )
       </TmText>
       <Row
         gap={0}
@@ -63,7 +74,12 @@ const AdminEventsList = ({ navigation }: TkProps) => {
         <TmButton
           title="Modifier"
           style={{ width: '50%' }}
-          onPress={() => navigation.navigate(routes.EVENTEDIT, { event: item })}
+          onPress={() =>
+            navigation.navigate(routes.EVENTEDIT, {
+              event: item,
+              onGoBack: fetchEvents,
+            })
+          }
         />
         <View style={{ width: 1 }} />
         <TmButton

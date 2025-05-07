@@ -1,17 +1,27 @@
 import { useEffect, useState } from 'react'
 import { FlatList, View } from 'react-native'
 
+import TmButton from '@/app/components/common/button/TmButton'
 import TmText from '@/app/components/common/text/TmText'
+import authStorage from '@/app/context/auth/Storage'
 import helpers from '@/app/utils/helpers'
+import TkProps from '@/TkProps'
 
-const ParticipantsList = ({ route }: { route: any }) => {
+const ParticipantsList = ({ navigation, route }: TkProps) => {
   const { eventId } = route.params
   const [participants, setParticipants] = useState([])
 
   const fetchParticipants = async () => {
     try {
+      const token = await authStorage.getToken()
       const res = await fetch(
-        `${helpers.getBaseUrl()}/admin/events/${eventId}/participants`
+        `${helpers.getBaseUrl()}/admin/events/${eventId}/participants`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+          },
+        }
       )
       const data = await res.json()
       setParticipants(data)
@@ -23,6 +33,21 @@ const ParticipantsList = ({ route }: { route: any }) => {
   useEffect(() => {
     fetchParticipants()
   }, [])
+
+  if (participants.length === 0)
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <TmText style={{ fontWeight: '700' }}>
+          Aucun Participant pour le moment
+        </TmText>
+        <TmButton
+          title="Retour"
+          color="primary1"
+          style={{ width: '50%' }}
+          onPress={() => navigation.goBack()}
+        />
+      </View>
+    )
 
   return (
     <FlatList

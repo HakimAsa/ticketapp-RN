@@ -1,6 +1,7 @@
 import TkProps from '@/TkProps'
+import { useFocusEffect } from '@react-navigation/native'
 import dayjs from 'dayjs'
-import React, { useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { FlatList, TouchableOpacity, View } from 'react-native'
 import TmText from '../components/common/text/TmText'
 import TkActivityIndicator from '../components/loader/TkActivityIndicator'
@@ -73,9 +74,11 @@ const EventsList = ({ navigation }: TkProps) => {
     }
   }
 
-  useEffect(() => {
-    fetchEvents()
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      fetchEvents()
+    }, [])
+  )
 
   const renderItem = ({ item }: { item: any }) => (
     <TouchableOpacity
