@@ -4,6 +4,7 @@ import fr from '@/translation/fr'
 import AdminEventsList from '../screens/admin/AdminEventsList'
 import EditEvent from '../screens/admin/EditEvent'
 import ParticipantsList from '../screens/admin/ParticipantList'
+import Stats from '../screens/admin/Stats'
 import Login from '../screens/common/auth/Login'
 import Register from '../screens/common/auth/Register'
 import Welcome from '../screens/common/auth/Welcome'
@@ -51,6 +52,11 @@ export default function RootStack() {
       <Stack.Screen
         name={routes.EVENTADMINLIST}
         component={AdminEventsList}
+      />
+      <Stack.Screen
+        name={routes.ADMISTATS}
+        component={Stats}
+        options={{ title: 'Statistiques' }}
       />
       <Stack.Screen
         name={routes.EVENTEDIT}

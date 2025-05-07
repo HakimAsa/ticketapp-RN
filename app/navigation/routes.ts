@@ -1,5 +1,6 @@
 const routes = {
   // use value in lowercase for translations match
+  ADMISTATS: 'Les Stats pour admin',
   EVENTADMINLIST: "Liste des événements d'administration",
   EVENTEDIT: "Modifier l'événements",
   EVENTLIST: 'List des Evenements',

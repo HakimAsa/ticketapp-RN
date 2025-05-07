@@ -197,6 +197,11 @@ const AdminEventsList = ({ navigation }: TkProps) => {
         }
       />
       <TmButton
+        title="Stats"
+        color="secondary"
+        onPress={() => navigation.navigate(routes.ADMISTATS)}
+      />
+      <TmButton
         color="danger"
         title={fr.logout}
         onPress={async () => {
