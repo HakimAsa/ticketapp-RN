@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { FlatList, View } from 'react-native'
+import { useCallback, useEffect, useState } from 'react'
+import { FlatList, TouchableOpacity, View } from 'react-native'
+import Swipeable from 'react-native-gesture-handler/Swipeable'
 
 import TmButton from '@/app/components/common/button/TmButton'
 import TmText from '@/app/components/common/text/TmText'
@@ -10,11 +11,64 @@ import authStorage from '@/app/context/auth/Storage'
 import routes from '@/app/navigation/routes'
 import helpers from '@/app/utils/helpers'
 import TkProps from '@/TkProps'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useFocusEffect } from '@react-navigation/native'
+import { Alert } from 'react-native'
 
 const AdminEventsList = ({ navigation }: TkProps) => {
   const [events, setEvents] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [refreshing, setRefreshing] = useState(false)
+
+  const onRefresh = async () => {
+    setRefreshing(true)
+    await fetchEvents()
+    setRefreshing(false)
+  }
+
+  // Inside your component
+  const handleDelete = async (id: number) => {
+    try {
+      const token = await authStorage.getToken()
+      await fetch(`${helpers.getBaseUrl()}/admin/events/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      setEvents((prev) => prev.filter((event) => event.id !== id))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const renderRightActions = (item: any) => (
+    <TouchableOpacity
+      onPress={() =>
+        Alert.alert(
+          'Supprimer',
+          `Êtes-vous sûr de vouloir supprimer l'événement "${item.title}" ?`,
+          [
+            { text: 'Annuler', style: 'cancel' },
+            { text: 'Supprimer', onPress: () => handleDelete(item.id) },
+          ]
+        )
+      }
+      style={{
+        backgroundColor: Colors.red,
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        paddingHorizontal: 20,
+        // flex: 1,
+      }}
+    >
+      <MaterialCommunityIcons
+        name="trash-can-outline"
+        color={Colors.white}
+        size={24}
+      />
+    </TouchableOpacity>
+  )
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -55,50 +109,53 @@ const AdminEventsList = ({ navigation }: TkProps) => {
   }
 
   const renderItem = ({ item }: { item: any }) => (
-    <View style={{ padding: 12, borderBottomWidth: 1 }}>
-      <TmText style={{ fontSize: 16, fontWeight: '700' }}>
-        {item.title} (
-        <TmText
-          style={{
-            color: item.status === 'active' ? Colors.green : Colors.red,
-          }}
-        >
-          {item.status === 'active' ? 'Actif' : 'Expiré'}
+    <Swipeable renderRightActions={() => renderRightActions(item)}>
+      <View style={{ padding: 12, borderBottomWidth: 1 }}>
+        <TmText style={{ fontSize: 16, fontWeight: '700' }}>
+          {item.title} (
+          <TmText
+            style={{
+              color: item.status === 'active' ? Colors.green : Colors.red,
+            }}
+          >
+            {item.status === 'active' ? 'Actif' : 'Expiré'}
+          </TmText>
+          )
         </TmText>
-        )
-      </TmText>
-      <Row
-        gap={0}
-        style={{ marginTop: 8 }}
-      >
-        <TmButton
-          title="Modifier"
-          style={{ width: '50%' }}
-          onPress={() =>
-            navigation.navigate(routes.EVENTEDIT, {
-              event: item,
-              onGoBack: fetchEvents,
-            })
-          }
-        />
-        <View style={{ width: 1 }} />
-        <TmButton
-          title="Participants"
-          color="primary1"
-          style={{ width: '50%' }}
-          onPress={() =>
-            navigation.navigate(routes.PARTICIPANTSLIST, { eventId: item.id })
-          }
-        />
-      </Row>
-    </View>
+        <Row
+          gap={0}
+          style={{ marginTop: 8 }}
+        >
+          <TmButton
+            title="Modifier"
+            style={{ width: '50%' }}
+            onPress={() =>
+              navigation.navigate(routes.EVENTEDIT, {
+                event: item,
+                onGoBack: fetchEvents,
+              })
+            }
+          />
+          <View style={{ width: 1 }} />
+          <TmButton
+            title="Participants"
+            color="primary1"
+            style={{ width: '50%' }}
+            onPress={() =>
+              navigation.navigate(routes.PARTICIPANTSLIST, { eventId: item.id })
+            }
+          />
+        </Row>
+      </View>
+    </Swipeable>
   )
-
   return (
     <FlatList
       data={events}
       keyExtractor={(item) => item.id.toString()}
       renderItem={renderItem}
+      refreshing={refreshing}
+      onRefresh={onRefresh}
       ListHeaderComponent={
         <TmButton
           title="Créer un nouvel événement"
