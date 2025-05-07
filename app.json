@@ -16,7 +16,8 @@
         "foregroundImage": "./assets/images/ticketapplogo.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.hakimesco.ticketapp"
     },
     "web": {
       "bundler": "metro",

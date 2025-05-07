@@ -1,50 +1,60 @@
-# Welcome to your Expo app 👋
+# 📱 Application Mobile de Gestion d'Événements
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Application mobile React Native permettant aux utilisateurs de :
 
-## Get started
+- Voir la liste des événements
+- Participer à un événement (sans compte)
+- Recevoir un ticket par email après inscription
 
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## ⚙️ Installation
 
 ```bash
-npm run reset-project
+npm install
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+> Utilise Expo pour faciliter les tests sur Android/iOS
 
-## Learn more
+## 📚 Fonctionnalités
 
-To learn more about developing your project with Expo, look at the following resources:
+### 🎉 Utilisateur
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- Parcourir tous les événements disponibles
+- Formulaire de participation (nom, prénom, email)
+- Reçoit un email avec son ticket
 
-## Join the community
+### 🔐 Admin
 
-Join our community of developers creating universal apps.
+- Écran de connexion (`/Login`)
+- Accès protégé au dashboard (`/AdminEventsList`)
+- Authentification via token JWT stocké localement
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 📦 Structure
+
+```
+/screens
+  Welcome.tsx
+  EventDetails.tsx
+  ParticipationScreen.js
+  Login.tsx
+  AdminEventsList.tsx
+  ...
+/utils
+  helpers.ts
+...
+```
+
+## 🔐 Authentification Admin
+
+- Le token JWT est stocké via `AsyncStorage`
+- Redirection automatique si non connecté
+
+## 🔪 Tests
+
+- Utiliser l’écran admin pour se connecter avec :
+  - email : `admin@example.com`
+  - mot de passe : `admin123`
+
+## ✅ À venir
+
+- Intégration QR Code
