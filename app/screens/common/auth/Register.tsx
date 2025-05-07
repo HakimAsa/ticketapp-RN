@@ -16,6 +16,7 @@ import MessageModal from '@/app/components/modals/MessageModal'
 import useApi from '@/app/hooks/useApi'
 import routes from '@/app/navigation/routes'
 import TmProps from '@/TkProps'
+import fr from '@/translation/fr'
 import TRN_KEYS from '@/translation/keys'
 import { useState } from 'react'
 import AuthFooter from './AuthFooter'
@@ -140,10 +141,16 @@ export default function Register({ navigation }: TmProps) {
               iconName="lock"
             />
             {/* Submit button */}
-            <TmSubmitButton title="S'inscrire" />
+            <TmSubmitButton
+              title="S'inscrire"
+              disabled={true}
+              style={{
+                opacity: 0.6,
+              }}
+            />
             <AuthFooter
-              unlinkedText={TRN_KEYS.ALREADYHAVEANACCOUNT}
-              linkedText={TRN_KEYS.LOGIN}
+              unlinkedText={fr.alreadyHaveAnAccount}
+              linkedText={fr.login}
               onPress={() => navigation.navigate(routes.LOGIN)}
             />
           </TmForm>

@@ -4,7 +4,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable'
 
 import TmButton from '@/app/components/common/button/TmButton'
 import TmText from '@/app/components/common/text/TmText'
-import { Row } from '@/app/components/containers'
+import MainContainer, { Row } from '@/app/components/containers'
 import TkActivityIndicator from '@/app/components/loader/TkActivityIndicator'
 import Colors from '@/app/config/colors'
 import authStorage from '@/app/context/auth/Storage'
@@ -120,25 +120,42 @@ const AdminEventsList = ({ navigation }: TkProps) => {
 
   const renderItem = ({ item }: { item: any }) => (
     <Swipeable renderRightActions={() => renderRightActions(item)}>
-      <View style={{ padding: 12, borderBottomWidth: 1 }}>
-        <TmText style={{ fontSize: 16, fontWeight: '700' }}>
-          {item.title} (
+      <View
+        style={{
+          backgroundColor: '#fff',
+          marginHorizontal: 16,
+          marginVertical: 8,
+          padding: 16,
+          borderRadius: 12,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.1,
+          shadowRadius: 4,
+          elevation: 3,
+        }}
+      >
+        <TmText style={{ fontSize: 18, fontWeight: '700', color: '#333' }}>
+          {item.title}{' '}
           <TmText
             style={{
+              fontSize: 16,
+              fontWeight: '600',
               color: item.status === 'active' ? Colors.green : Colors.red,
             }}
           >
-            {item.status === 'active' ? 'Actif' : 'Expiré'}
+            ({item.status === 'active' ? 'Actif' : 'Expiré'})
           </TmText>
-          )
         </TmText>
-        <Row
-          gap={0}
-          style={{ marginTop: 8 }}
-        >
+
+        <Row style={{ marginTop: 16, justifyContent: 'space-between' }}>
           <TmButton
             title="Modifier"
-            style={{ width: '50%' }}
+            style={{
+              flex: 1,
+              marginRight: 8,
+              borderRadius: 8,
+              paddingVertical: 10,
+            }}
             onPress={() =>
               navigation.navigate(routes.EVENTEDIT, {
                 event: item,
@@ -146,11 +163,15 @@ const AdminEventsList = ({ navigation }: TkProps) => {
               })
             }
           />
-          <View style={{ width: 1 }} />
           <TmButton
             title="Participants"
             color="primary1"
-            style={{ width: '50%' }}
+            style={{
+              flex: 1,
+              marginLeft: 8,
+              borderRadius: 8,
+              paddingVertical: 10,
+            }}
             onPress={() =>
               navigation.navigate(routes.PARTICIPANTSLIST, { eventId: item.id })
             }
@@ -159,8 +180,9 @@ const AdminEventsList = ({ navigation }: TkProps) => {
       </View>
     </Swipeable>
   )
+
   return (
-    <>
+    <MainContainer style={{ paddingTop: 0, paddingBottom: 0, padding: 10 }}>
       <FlatList
         data={events}
         keyExtractor={(item) => item.id.toString()}
@@ -182,7 +204,7 @@ const AdminEventsList = ({ navigation }: TkProps) => {
           navigation.replace(routes.LOGIN)
         }}
       />
-    </>
+    </MainContainer>
   )
 }
 

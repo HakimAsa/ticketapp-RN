@@ -93,16 +93,42 @@ const EventsList = ({ navigation }: TkProps) => {
       onPress={() =>
         navigation.navigate('Details de Evenements', { event: item })
       }
+      activeOpacity={0.8}
+      style={{
+        opacity: item.status === 'active' ? 1 : 0.6,
+      }}
     >
-      <View style={{ padding: 16, borderBottomWidth: 1 }}>
-        <TmText style={{ fontSize: 18 }}>{item.title}</TmText>
-        <TmText>{item.description}</TmText>
-        <TmText>
-          {dayjs(item.start_date).format('DD/MM/YYYY')} ➡{' '}
+      <View
+        style={{
+          backgroundColor: '#fff',
+          marginHorizontal: 16,
+          marginVertical: 8,
+          padding: 16,
+          borderRadius: 12,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.1,
+          shadowRadius: 4,
+          elevation: 3,
+        }}
+      >
+        <TmText style={{ fontSize: 20, fontWeight: '600', color: '#333' }}>
+          {item.title}
+        </TmText>
+
+        <TmText style={{ fontSize: 16, color: '#666', marginVertical: 8 }}>
+          {item.description}
+        </TmText>
+
+        <TmText style={{ fontSize: 14, color: '#999', marginBottom: 6 }}>
+          📅 {dayjs(item.start_date).format('DD/MM/YYYY')} ➡{' '}
           {dayjs(item.end_date).format('DD/MM/YYYY')}
         </TmText>
+
         <TmText
           style={{
+            fontSize: 14,
+            fontWeight: '500',
             color: item.status === 'active' ? Colors.green : Colors.red,
           }}
         >
