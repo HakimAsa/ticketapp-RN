@@ -11,7 +11,7 @@ import fr from '@/translation/fr'
 export default function Welcome({ navigation }: TmProps) {
   return (
     <ImageBackground
-      blurRadius={10}
+      blurRadius={15}
       style={styles.background}
       source={require('@/assets/images/backgroundImage.png')}
     >

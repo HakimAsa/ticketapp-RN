@@ -15,7 +15,7 @@ export default function Logo({
 }: ImageProps) {
   return (
     <Image
-      source={require('../../../../assets/images/react-logo.png')}
+      source={require('../../../../assets/images/ticketapplogo.png')}
       style={[
         {
           width,
