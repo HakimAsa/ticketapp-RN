@@ -11,6 +11,13 @@ import helpers from '../utils/helpers'
 const EventsList = ({ navigation }: TkProps) => {
   const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(true)
+  const [refreshing, setRefreshing] = useState(false)
+
+  const onRefresh = async () => {
+    setRefreshing(true)
+    await fetchEvents()
+    setRefreshing(false)
+  }
 
   const fetchEvents = async () => {
     try {
@@ -110,6 +117,8 @@ const EventsList = ({ navigation }: TkProps) => {
   return (
     <FlatList
       data={events}
+      refreshing={refreshing}
+      onRefresh={onRefresh}
       keyExtractor={(item) => item.id.toString()}
       renderItem={renderItem}
     />

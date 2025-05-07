@@ -13,6 +13,15 @@ import * as Yup from 'yup'
 
 const { getBaseUrl } = helpers
 
+const placeholderTranslations = {
+  title: 'Titre',
+  description: 'Description',
+  start_date: 'Date de début',
+  end_date: 'Date de fin',
+  status: 'Statut',
+  max_participants: 'Nombre maximum de participants',
+}
+
 const eventEditsSchema = Yup.object({
   title: Yup.string().required('Titre obligatoire'),
   description: Yup.string()
@@ -126,7 +135,9 @@ const EditEvent = ({ route, navigation }: TkProps) => {
                 keyboardType={
                   field === 'max_participants' ? 'numeric' : 'default'
                 }
-                placeholder={field.replace('_', ' ')}
+                placeholder={
+                  placeholderTranslations[field] || field.replace('_', ' ')
+                }
               />
             ))}
             <TmSubmitButton title={event ? 'Mettre à jour' : 'Créer'} />

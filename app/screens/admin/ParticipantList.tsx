@@ -3,6 +3,7 @@ import { FlatList, View } from 'react-native'
 
 import TmButton from '@/app/components/common/button/TmButton'
 import TmText from '@/app/components/common/text/TmText'
+import TkActivityIndicator from '@/app/components/loader/TkActivityIndicator'
 import authStorage from '@/app/context/auth/Storage'
 import helpers from '@/app/utils/helpers'
 import TkProps from '@/TkProps'
@@ -10,9 +11,11 @@ import TkProps from '@/TkProps'
 const ParticipantsList = ({ navigation, route }: TkProps) => {
   const { eventId } = route.params
   const [participants, setParticipants] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const fetchParticipants = async () => {
     try {
+      setLoading(true)
       const token = await authStorage.getToken()
       const res = await fetch(
         `${helpers.getBaseUrl()}/admin/events/${eventId}/participants`,
@@ -23,6 +26,7 @@ const ParticipantsList = ({ navigation, route }: TkProps) => {
           },
         }
       )
+      setLoading(false)
       const data = await res.json()
       setParticipants(data)
     } catch (err) {
@@ -34,7 +38,9 @@ const ParticipantsList = ({ navigation, route }: TkProps) => {
     fetchParticipants()
   }, [])
 
-  if (participants.length === 0)
+  if (loading) return <TkActivityIndicator visible={loading} />
+
+  if (participants.length === 0 && !loading)
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <TmText style={{ fontWeight: '700' }}>

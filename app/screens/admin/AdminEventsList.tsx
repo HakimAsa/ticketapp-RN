@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { FlatList, TouchableOpacity, View } from 'react-native'
+import { BackHandler, FlatList, TouchableOpacity, View } from 'react-native'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 
 import TmButton from '@/app/components/common/button/TmButton'
@@ -11,6 +11,7 @@ import authStorage from '@/app/context/auth/Storage'
 import routes from '@/app/navigation/routes'
 import helpers from '@/app/utils/helpers'
 import TkProps from '@/TkProps'
+import fr from '@/translation/fr'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useFocusEffect } from '@react-navigation/native'
 import { Alert } from 'react-native'
@@ -100,7 +101,16 @@ const AdminEventsList = ({ navigation }: TkProps) => {
 
   useFocusEffect(
     useCallback(() => {
+      //fetch events
       fetchEvents()
+
+      // Prevent going back
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        () => true // prevent back navigation
+      )
+
+      return () => backHandler.remove() // ✅ properly cleans up
     }, [])
   )
 
@@ -150,19 +160,29 @@ const AdminEventsList = ({ navigation }: TkProps) => {
     </Swipeable>
   )
   return (
-    <FlatList
-      data={events}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={renderItem}
-      refreshing={refreshing}
-      onRefresh={onRefresh}
-      ListHeaderComponent={
-        <TmButton
-          title="Créer un nouvel événement"
-          onPress={() => navigation.navigate(routes.EVENTEDIT)}
-        />
-      }
-    />
+    <>
+      <FlatList
+        data={events}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderItem}
+        refreshing={refreshing}
+        onRefresh={onRefresh}
+        ListHeaderComponent={
+          <TmButton
+            title="Créer un nouvel événement"
+            onPress={() => navigation.navigate(routes.EVENTEDIT)}
+          />
+        }
+      />
+      <TmButton
+        color="danger"
+        title={fr.logout}
+        onPress={async () => {
+          await authStorage.removeToken()
+          navigation.replace(routes.LOGIN)
+        }}
+      />
+    </>
   )
 }
 
