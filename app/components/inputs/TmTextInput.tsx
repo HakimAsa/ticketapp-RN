@@ -94,8 +94,9 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontSize: 14,
+    fontSize: 15,
     paddingVertical: 5, // instead of margin
     borderColor: 'gray',
+    fontFamily: 'Montserrat_600SemiBold',
   },
 })

@@ -68,7 +68,7 @@ export default function Login({ navigation }: TmProps) {
           {/* LOGIN fields */}
           <TmText
             big
-            style={{ fontWeight: '700', textAlign: 'center' }}
+            style={{ textAlign: 'center' }}
           >
             Seulement pour les Admins
           </TmText>
