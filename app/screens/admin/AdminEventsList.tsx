@@ -4,7 +4,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable'
 
 import TmButton from '@/app/components/common/button/TmButton'
 import TmText from '@/app/components/common/text/TmText'
-import MainContainer, { Row } from '@/app/components/containers'
+import MainContainer, { Row, RowContainer } from '@/app/components/containers'
 import TkActivityIndicator from '@/app/components/loader/TkActivityIndicator'
 import Colors from '@/app/config/colors'
 import authStorage from '@/app/context/auth/Storage'
@@ -86,7 +86,7 @@ const AdminEventsList = ({ navigation }: TkProps) => {
   const fetchEvents = async () => {
     try {
       const token = await authStorage.getToken()
-      const res = await fetch(`${helpers.getBaseUrl()}/events`, {
+      const res = await fetch(`${helpers.getBaseUrl()}/admin/events`, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: 'application/json',
@@ -134,18 +134,31 @@ const AdminEventsList = ({ navigation }: TkProps) => {
           elevation: 3,
         }}
       >
-        <TmText style={{ fontSize: 18, fontWeight: '700', color: '#333' }}>
-          {item.title}{' '}
-          <TmText
-            style={{
-              fontSize: 16,
-              fontWeight: '600',
-              color: item.status === 'active' ? Colors.green : Colors.red,
-            }}
-          >
-            ({item.status === 'active' ? 'Actif' : 'Expiré'})
+        <RowContainer>
+          <TmText style={{ fontSize: 18, fontWeight: '700', color: '#333' }}>
+            {item.title}{' '}
+            <TmText
+              medium
+              style={{
+                color: item.status === 'active' ? Colors.green : Colors.red,
+              }}
+            >
+              ({item.status === 'active' ? 'Actif' : 'Expiré'})
+            </TmText>
           </TmText>
-        </TmText>
+          {item.deleted && (
+            <TmText
+              small
+              style={{
+                fontWeight: '600',
+                color: Colors.red,
+                textDecorationLine: 'line-through',
+              }}
+            >
+              {item.deleted && 'Supprimé'}
+            </TmText>
+          )}
+        </RowContainer>
 
         <Row style={{ marginTop: 16, justifyContent: 'space-between' }}>
           <TmButton

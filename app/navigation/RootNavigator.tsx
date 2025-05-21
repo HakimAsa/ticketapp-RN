@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import fr from '@/translation/fr'
 import AdminEventsList from '../screens/admin/AdminEventsList'
 import EditEvent from '../screens/admin/EditEvent'
+import EventSummary from '../screens/admin/EventSummary'
 import ParticipantsList from '../screens/admin/ParticipantList'
 import Stats from '../screens/admin/Stats'
 import Login from '../screens/common/auth/Login'
@@ -57,6 +58,14 @@ export default function RootStack() {
         name={routes.ADMISTATS}
         component={Stats}
         options={{ title: 'Statistiques' }}
+      />
+      <Stack.Screen
+        name={routes.EVENTSUMMARY}
+        component={EventSummary}
+        options={({ route }) => ({
+          headerShown: true,
+          title: `Resumé: ${route.params.event.title}`,
+        })}
       />
       <Stack.Screen
         name={routes.EVENTEDIT}

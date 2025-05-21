@@ -1,12 +1,15 @@
-// screens/admin/stats.js
+// screens/admin/stats.tsx
 import TmText from '@/app/components/common/text/TmText'
 import TkActivityIndicator from '@/app/components/loader/TkActivityIndicator'
 import authStorage from '@/app/context/auth/Storage'
+import routes from '@/app/navigation/routes'
 import helpers from '@/app/utils/helpers'
-import { useEffect, useState } from 'react'
-import { FlatList, StyleSheet, View } from 'react-native'
+import TkProps from '@/TkProps'
+import { useFocusEffect } from '@react-navigation/native'
+import { useCallback, useState } from 'react'
+import { FlatList, Pressable, StyleSheet, View } from 'react-native'
 
-const Stats = () => {
+const Stats = ({ navigation }: TkProps) => {
   const [stats, setStats] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -28,11 +31,14 @@ const Stats = () => {
     }
   }
 
-  useEffect(() => {
-    fetchStats()
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      //fetch events
+      fetchStats()
+    }, [])
+  )
 
-  if (loading) return <TkActivityIndicator />
+  if (loading) return <TkActivityIndicator visible={loading} />
 
   return (
     <View style={styles.container}>
@@ -41,7 +47,15 @@ const Stats = () => {
         data={stats}
         keyExtractor={(item) => item.event_id.toString()}
         renderItem={({ item }) => (
-          <View style={styles.card}>
+          <Pressable
+            style={styles.card}
+            onPress={() =>
+              navigation.navigate(routes.EVENTSUMMARY, {
+                event: item,
+                onGoBack: fetchStats,
+              })
+            }
+          >
             <TmText
               big
               style={styles.event}
@@ -51,7 +65,7 @@ const Stats = () => {
             <TmText style={styles.count}>
               Participants : {item.participant_count}
             </TmText>
-          </View>
+          </Pressable>
         )}
       />
     </View>

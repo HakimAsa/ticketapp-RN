@@ -4,6 +4,7 @@ const routes = {
   EVENTADMINLIST: "Liste des événements d'administration",
   EVENTEDIT: "Modifier l'événements",
   EVENTLIST: 'List des Evenements',
+  EVENTSUMMARY: 'Resumé Evenément',
   HOME: 'home',
   LANGUAGE: 'language',
   LOGIN: 'login',
